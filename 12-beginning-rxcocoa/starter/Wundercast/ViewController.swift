@@ -25,42 +25,71 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
-
+  
   @IBOutlet weak var searchCityName: UITextField!
   @IBOutlet weak var tempLabel: UILabel!
   @IBOutlet weak var humidityLabel: UILabel!
   @IBOutlet weak var iconLabel: UILabel!
   @IBOutlet weak var cityNameLabel: UILabel!
-
+  
+  let bag = DisposeBag()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-
+    
     style()
-
+    
+    // STEP 1
+    ApiController.shared.currentWeather(city: "RxSwift")
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { data in
+        self.tempLabel.text = "\(data.temperature)° C"
+        self.iconLabel.text = data.icon
+        self.humidityLabel.text = "\(data.humidity)%"
+        self.cityNameLabel.text = data.cityName
+      }).addDisposableTo(bag)
+    
+    // STEP 2
+    searchCityName.rx.text
+      .filter { ($0 ?? "").characters.count > 0 }
+      .flatMap { text in
+        return ApiController.shared.currentWeather(city: text ?? "Error")
+                .catchErrorJustReturn(ApiController.Weather.empty)
+      }
+      
+      // STEP 3
+      .observeOn(MainScheduler.instance)
+      .subscribe(onNext: { data in
+        self.tempLabel.text = "\(data.temperature)° C"
+        self.iconLabel.text = data.icon
+        self.humidityLabel.text = "\(data.humidity)%"
+        self.cityNameLabel.text = data.cityName
+      }).addDisposableTo(bag)
+    
   }
-
+  
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
   }
-
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-
+    
     Appearance.applyBottomLine(to: searchCityName)
   }
-
+  
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
-
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
+  
   // MARK: - Style
-
+  
   private func style() {
     view.backgroundColor = UIColor.aztec
     searchCityName.textColor = UIColor.ufoGreen

@@ -215,7 +215,6 @@
 				TargetAttributes = {
 					CB4D693C1DE9A7D100DC0488 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 4BGYDQR2GQ;
 						ProvisioningStyle = Automatic;
 					};
 					CB4D69501DE9A7D100DC0488 = {
@@ -463,7 +462,7 @@
 			baseConfigurationReference = 8CF08882048DB0620980ACC9 /* Pods-Wundercast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4BGYDQR2GQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wundercast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.Wundercast;
@@ -477,7 +476,7 @@
 			baseConfigurationReference = A8FEC475BD4840CDBFA8E9B0 /* Pods-Wundercast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4BGYDQR2GQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wundercast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.Wundercast;
