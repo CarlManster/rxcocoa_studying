@@ -2,6 +2,16 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+# Chapter 12
+12-beginning-rxcocoa/challenge/Pods
+12-beginning-rxcocoa/final/Pods
+12-beginning-rxcocoa/starter/Pods
+
+# Chapter 13
+13-intermediate-rxcocoa/challenges/Pods
+13-intermediate-rxcocoa/final/Pods
+13-intermediate-rxcocoa/starter/Pods
+
 ## Build generated
 build/
 DerivedData/
