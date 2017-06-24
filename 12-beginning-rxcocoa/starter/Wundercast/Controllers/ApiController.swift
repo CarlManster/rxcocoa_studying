@@ -60,7 +60,7 @@ class ApiController {
   //MARK: - Api Calls
 
   func currentWeather(city: String) -> Observable<Weather> {
-    // STEP 4
+    // manster STEP 4
     return buildRequest(pathComponent: "weather", params: [("q", city)])
             .map { json in
               return Weather(

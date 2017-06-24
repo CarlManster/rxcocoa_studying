@@ -32,6 +32,9 @@ class ViewController: UIViewController {
   @IBOutlet weak var iconLabel: UILabel!
   @IBOutlet weak var cityNameLabel: UILabel!
   
+  // manster challenge STEP 01
+  @IBOutlet weak var tempSwitch: UISwitch!
+
   let bag = DisposeBag()
   
   override func viewDidLoad() {
@@ -40,7 +43,7 @@ class ViewController: UIViewController {
     
     style()
     
-    // STEP 1
+    // manster STEP 1
     ApiController.shared.currentWeather(city: "RxSwift")
       .observeOn(MainScheduler.instance)
       .subscribe(onNext: { data in
@@ -50,23 +53,108 @@ class ViewController: UIViewController {
         self.cityNameLabel.text = data.cityName
       }).addDisposableTo(bag)
     
-    // STEP 2
-    searchCityName.rx.text
-      .filter { ($0 ?? "").characters.count > 0 }
-      .flatMap { text in
-        return ApiController.shared.currentWeather(city: text ?? "Error")
-                .catchErrorJustReturn(ApiController.Weather.empty)
-      }
-      
-      // STEP 3
-      .observeOn(MainScheduler.instance)
-      .subscribe(onNext: { data in
-        self.tempLabel.text = "\(data.temperature)° C"
-        self.iconLabel.text = data.icon
-        self.humidityLabel.text = "\(data.humidity)%"
-        self.cityNameLabel.text = data.cityName
-      }).addDisposableTo(bag)
+    // manster STEP 2
+//    searchCityName.rx.text
+//      .filter { ($0 ?? "").characters.count > 0 }
+//      .flatMap { text in
+//        return ApiController.shared.currentWeather(city: text ?? "Error")
+//                .catchErrorJustReturn(ApiController.Weather.empty)
+//      }
+//      
+//      // manster STEP 3
+//      .observeOn(MainScheduler.instance)
+//      .subscribe(onNext: { data in
+//        self.tempLabel.text = "\(data.temperature)° C"
+//        self.iconLabel.text = data.icon
+//        self.humidityLabel.text = "\(data.humidity)%"
+//        self.cityNameLabel.text = data.cityName
+//      }).addDisposableTo(bag)
+
+    // manster STEP 5
+//    let search = searchCityName.rx.text
+//      .filter { ($0 ?? "").characters.count > 0 }
+//      .flatMapLatest { text in
+//        return ApiController.shared.currentWeather(city: text ?? "Error")
+//          .catchErrorJustReturn(ApiController.Weather.empty)
+//      }.observeOn(MainScheduler.instance)
+//
+//    
+//    search.map { "\($0.temperature)° C" }
+//      .bind(to:tempLabel.rx.text)
+//      .addDisposableTo(bag)
+//    
+//    search.map { $0.icon }
+//      .bind(to:iconLabel.rx.text)
+//      .addDisposableTo(bag)
+//    
+//    search.map { "\($0.humidity)%" }
+//      .bind(to:humidityLabel.rx.text)
+//      .addDisposableTo(bag)
+//    
+//    search.map { $0.cityName }
+//      .bind(to:cityNameLabel.rx.text)
+//      .addDisposableTo(bag)
     
+    // manster STEP 6
+//    let search = searchCityName.rx.text
+//      .filter { ($0 ?? "").characters.count > 0 }
+//      .flatMapLatest { text in
+//        return ApiController.shared.currentWeather(city: text ?? "Error")
+//          .catchErrorJustReturn(ApiController.Weather.empty)
+//      }
+//      .asDriver(onErrorJustReturn: ApiController.Weather.empty)
+//    
+//    search.map { "\($0.temperature)° C" }
+//      .drive(tempLabel.rx.text)
+//      .disposed(by:bag)
+//    
+//    search.map { $0.icon }
+//      .drive(iconLabel.rx.text)
+//      .disposed(by:bag)
+//    
+//    search.map { "\($0.humidity)%" }
+//      .drive(humidityLabel.rx.text)
+//      .disposed(by:bag)
+//    
+//    search.map { $0.cityName }
+//      .drive(cityNameLabel.rx.text)
+//      .disposed(by:bag)
+    
+    // manster STEP 7
+    let search = searchCityName.rx.controlEvent(.editingDidEndOnExit).asObservable()
+      .map { self.searchCityName.text }
+      .filter { ($0 ?? "").characters.count > 0 }
+      .flatMapLatest { text in
+        return ApiController.shared.currentWeather(city: text ?? "Error")
+          .catchErrorJustReturn(ApiController.Weather.empty)
+      }
+      .asDriver(onErrorJustReturn: ApiController.Weather.empty)
+    
+    search.map { "\($0.temperature)° C" }
+      .drive(tempLabel.rx.text)
+      .disposed(by:bag)
+    
+    // manster challenge STEP 02
+//    search.map { w in
+//      if self.tempSwitch.isOn {
+//        return "\(Int(Double(w.temperature) * 1.8 + 32))° F"
+//      }
+//      return "\(w.temperature)° C"
+//      }
+//      .drive(tempLabel.rx.text)
+//      .disposed(by:bag)
+    
+    search.map { $0.icon }
+      .drive(iconLabel.rx.text)
+      .disposed(by:bag)
+    
+    search.map { "\($0.humidity)%" }
+      .drive(humidityLabel.rx.text)
+      .disposed(by:bag)
+    
+    search.map { $0.cityName }
+      .drive(cityNameLabel.rx.text)
+      .disposed(by:bag)
   }
   
   override func viewDidAppear(_ animated: Bool) {
