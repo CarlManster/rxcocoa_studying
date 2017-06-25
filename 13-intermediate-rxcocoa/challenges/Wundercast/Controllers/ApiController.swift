@@ -73,6 +73,7 @@ class ApiController {
     }
   }
 
+  // manster - challenge 2  
   func currentWeatherAround(lat: Double, lon: Double) -> Observable<[Weather]> {
     var weathers = [Observable<Weather>]()
     for i in -1...1 {

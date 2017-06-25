@@ -156,11 +156,13 @@ class ViewController: UIViewController {
       .drive(mapView.rx.overlays)
       .disposed(by: bag)
 
+    // manster - challenge 1
     textSearch.asDriver(onErrorJustReturn: ApiController.Weather.dummy)
       .map { $0.coordinate }
       .drive(mapView.rx.location)
       .disposed(by: bag)
 
+    // manster - challenge 2
     mapInput.flatMap { coordinate in
       return ApiController.shared.currentWeatherAround(lat: coordinate.latitude, lon: coordinate.longitude)
         .catchErrorJustReturn([])
