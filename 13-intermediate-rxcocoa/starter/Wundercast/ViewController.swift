@@ -38,6 +38,9 @@ class ViewController: UIViewController {
   @IBOutlet weak var cityNameLabel: UILabel!
 
   let bag = DisposeBag()
+  
+  // manster STEP 6
+//  let locationManager = CLLocationManager()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -45,6 +48,34 @@ class ViewController: UIViewController {
 
     style()
 
+    // manster STEP 1
+//    let searchInput = searchCityName.rx.controlEvent(.editingDidEndOnExit).asObservable()
+//        .map { self.searchCityName.text }
+//        .filter { ($0 ?? "").characters.count > 0 }
+    
+    // manster STEP 2
+//    let search = searchInput.flatMap { text in
+//        return ApiController.shared.currentWeather(city: text ?? "Error")
+//            .catchErrorJustReturn(ApiController.Weather.dummy)
+//    }
+//    .asDriver(onErrorJustReturn: ApiController.Weather.dummy)
+    
+    // manster STEP 9
+//    let textSearch = searchInput.flatMap { text in
+//      return ApiController.shared.currentWeather(city: text ?? "Error")
+//        .catchErrorJustReturn(ApiController.Weather.dummy)
+//    }
+    
+    // manster STEP 19
+//    let mapInput = mapView.rx.regionDidChangeAnimated
+//      .skip(1)
+//      .map { _ in self.mapView.centerCoordinate }
+//    
+//    let mapSearch = mapInput.flatMap { coordinate in
+//      return ApiController.shared.currentWeather(lat: coordinate.latitude, lon: coordinate.longitude)
+//        .catchErrorJustReturn(ApiController.Weather.dummy)
+//    }
+    
     let search = searchCityName.rx.controlEvent(.editingDidEndOnExit).asObservable()
       .map { self.searchCityName.text }
       .filter { ($0 ?? "").characters.count > 0 }
@@ -53,6 +84,98 @@ class ViewController: UIViewController {
           .catchErrorJustReturn(ApiController.Weather.dummy)
       }
       .asDriver(onErrorJustReturn: ApiController.Weather.dummy)
+    
+    // manster STEP 3
+//    let running = Observable.from([
+//        searchInput.map { _ in true },
+//        search.map { _ in false }.asObservable()
+//    ])
+//    .merge()
+//    .startWith(true)
+//    .asDriver(onErrorJustReturn: false)
+    
+    // manster STEP 7
+//    geoLocationButton.rx.tap
+//      .subscribe(onNext: { _ in
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.startUpdatingLocation()
+//      }).addDisposableTo(bag)
+//    
+//    locationManager.rx.didUpdateLocations
+//      .subscribe(onNext: { locations in
+//        print(locations)
+//      }).addDisposableTo(bag)
+
+    // manster STEP 8
+//    let currentLocation = locationManager.rx.didUpdateLocations
+//      .map { locations in
+//        return locations[0]
+//      }
+//      .filter { location in
+//        return location.horizontalAccuracy < kCLLocationAccuracyHundredMeters
+//    }
+//    
+//    let geoInput = geoLocationButton.rx.tap.asObservable()
+//      .do(onNext: {
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.startUpdatingLocation()
+//      })
+//    
+//    let geoLocation = geoInput.flatMap {
+//      return currentLocation.take(1)
+//    }
+//    
+//    let geoSearch = geoLocation.flatMap { location in
+//      return ApiController.shared.currentWeather(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
+//        .catchErrorJustReturn(ApiController.Weather.dummy)
+//    }
+    
+    // manster STEP 10
+//    let search = Observable.from([geoSearch, textSearch])
+//      .merge()
+//      .asDriver(onErrorJustReturn: ApiController.Weather.dummy)
+//    
+//    let running = Observable.from([searchInput.map { _ in true },
+//                                   geoInput.map { _ in true },
+//                                   search.map { _ in false }.asObservable()])
+//    .merge()
+//    .startWith(true)
+//    .asDriver(onErrorJustReturn: false)
+
+    // manster STEP 20
+//    let search = Observable.from([geoSearch, textSearch, mapSearch])
+//      .merge()
+//      .asDriver(onErrorJustReturn: ApiController.Weather.dummy)
+//    
+//    let running = Observable.from([searchInput.map { _ in true },
+//                                   geoInput.map { _ in true },
+//                                   mapInput.map { _ in true},
+//                                   search.map { _ in false }.asObservable()])
+//      .merge()
+//      .startWith(true)
+//      .asDriver(onErrorJustReturn: false)
+
+    // manster STEP 4
+//    running
+//        .skip(1)
+//        .drive(activityIndicator.rx.isAnimating)
+//        .addDisposableTo(bag)
+//    
+//    running
+//        .drive(tempLabel.rx.isHidden)
+//        .disposed(by: bag)
+//    
+//    running
+//        .drive(iconLabel.rx.isHidden)
+//        .disposed(by: bag)
+//    
+//    running
+//        .drive(humidityLabel.rx.isHidden)
+//        .disposed(by: bag)
+//    
+//    running
+//        .drive(cityNameLabel.rx.isHidden)
+//        .disposed(by: bag)
 
     search.map { "\($0.temperature)° C" }
       .drive(tempLabel.rx.text)
@@ -70,6 +193,21 @@ class ViewController: UIViewController {
       .drive(cityNameLabel.rx.text)
       .disposed(by: bag)
 
+    // manster STEP 12
+//    mapButton.rx.tap
+//      .subscribe(onNext: {
+//        self.mapView.isHidden = !self.mapView.isHidden
+//      })
+//      .disposed(by: bag)
+
+    // manster STEP 14
+//    mapView.rx.setDelegate(self)
+//      .disposed(by: bag)
+    
+    // manster STEP 17
+//    search.map { [$0.overlay()] }
+//      .drive(mapView.rx.overlays)
+//      .disposed(by: bag)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -90,6 +228,8 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+    
+
 
   // MARK: - Style
 
@@ -102,4 +242,16 @@ class ViewController: UIViewController {
     cityNameLabel.textColor = UIColor.cream
   }
 }
+
+// manster STEP 15
+//extension ViewController: MKMapViewDelegate {
+//  func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//    if let overlay = overlay as? ApiController.Weather.Overlay {
+//      let overlayView = ApiController.Weather.OverlayView(overlay: overlay, overlayIcon: overlay.icon)
+//      return overlayView
+//    }
+//    return MKOverlayRenderer()
+//  }
+//}
+
 

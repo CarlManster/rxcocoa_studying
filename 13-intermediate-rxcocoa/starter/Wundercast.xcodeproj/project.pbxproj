@@ -40,7 +40,7 @@
 		A8FEC475BD4840CDBFA8E9B0 /* Pods-Wundercast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundercast.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wundercast/Pods-Wundercast.release.xcconfig"; sourceTree = "<group>"; };
 		CB4D693D1DE9A7D100DC0488 /* Wundercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB4D69401DE9A7D100DC0488 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CB4D69421DE9A7D100DC0488 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CB4D69421DE9A7D100DC0488 /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		CB4D69451DE9A7D100DC0488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB4D69471DE9A7D100DC0488 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB4D694A1DE9A7D100DC0488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -230,7 +230,6 @@
 				TargetAttributes = {
 					CB4D693C1DE9A7D100DC0488 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 4BGYDQR2GQ;
 						ProvisioningStyle = Automatic;
 					};
 					CB4D69501DE9A7D100DC0488 = {
@@ -480,7 +479,7 @@
 			baseConfigurationReference = 8CF08882048DB0620980ACC9 /* Pods-Wundercast.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4BGYDQR2GQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wundercast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.Wundercast;
@@ -494,7 +493,7 @@
 			baseConfigurationReference = A8FEC475BD4840CDBFA8E9B0 /* Pods-Wundercast.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4BGYDQR2GQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wundercast/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.Wundercast;

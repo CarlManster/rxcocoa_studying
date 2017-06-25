@@ -34,7 +34,7 @@ class ApiController {
 
   /// The api key to communicate with openweathermap.org
   /// Create you own on https://home.openweathermap.org/users/sign_up
-  private let apiKey = "[YOUR KEY]"
+  private let apiKey = "b7df09399978c6080aa16b2af36a5f32"
 
   /// API base URL
   let baseURL = URL(string: "http://api.openweathermap.org/data/2.5")!
@@ -223,11 +223,7 @@ fileprivate func imageFromText(text: NSString, font: UIFont) -> UIImage {
 
   let size = text.size(attributes: [NSFontAttributeName: font])
 
-  if (UIGraphicsBeginImageContextWithOptions != nil) {
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-  } else {
-    UIGraphicsBeginImageContext(size)
-  }
+  UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
   text.draw(at: CGPoint(x: 0, y:0), withAttributes: [NSFontAttributeName: font])
 

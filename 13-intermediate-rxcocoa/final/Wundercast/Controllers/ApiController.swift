@@ -223,11 +223,7 @@ fileprivate func imageFromText(text: NSString, font: UIFont) -> UIImage {
 
   let size = text.size(attributes: [NSFontAttributeName: font])
 
-  if (UIGraphicsBeginImageContextWithOptions != nil) {
-    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-  } else {
-    UIGraphicsBeginImageContext(size)
-  }
+  UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
   text.draw(at: CGPoint(x: 0, y:0), withAttributes: [NSFontAttributeName: font])
 
